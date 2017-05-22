@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Cloud Learning Journey By Tim Clapp #5 - Project</title>
+        <style>
+#map {
+    height: 600px;
+    width: 100%;
+}
+body {
+    min-width:600px;
+    background:White;
+    color:rgb(0,112,66);
+}
+#header {
+    font-size:x-large;
+    text-align:center;
+    padding: 0.3em 0;
+    color:rgb(0,112,66);
+    font-weight:bold;
+}
+#header.left {
+    font-size:x-large;
+    text-align:left;
+    padding: 0.3em 0;
+    color:rgb(0,112,66);
+    font-weight:bold;
+}
+#header.right {
+    font-size:x-large;
+    text-align:right;
+    padding: 0.3em 0;
+    color:rgb(0,112,66);
+    font-weight:bold;
+}
+H3 {
+    font-size:20px;
+    padding: 0.3em 0;
+    color:rgb(0,112,66);
+    font-weight:bold;
+}
+#footer {
+    font-size:small;
+    text-align:center;
+    padding: 0.3em 0;
+    color:rgb(0,112,66);
+    font-weight:bold;
+}
+.eg {
+    font-size:small;
+    text-align:left;
+}
+p {
+    color:rgb(0,112,66);
+}
+#container {
+    padding-left:20%;
+    padding-right:20%;
+}
+#container .column {
+    position:relative;
+    float:left;
+}
+#center {
+    width: 100%;
+}
+#left {
+    width:20%;
+    right: 20%;
+    margin-left: -100%;
+}
+#right {
+    width: 20%;
+    margin-right: -100%;
+}
+#footer {
+    clear:both;
+}
+* html #left {
+    left:150px;
+}
+#content-block {
+    padding:10px;
+}
+div#content-block p {
+    font-size:15px;
+    color:rgb(0,112,66);
+}
+.q {
+    font-weight:bold;
+    color:rgb(0,0,255);
+    font-size:13px;
+    padding-left:5px;
+}
+.emph {
+    font-weight:bold;
+    color:rgb(200,0,0);
+}
+.err {
+    font-weight:bold;
+    color:rgb(255,255,255);
+}
+fieldset {
+    padding:10px;
+    background-color:#efefef;
+    border-width:2px;
+    margin-bottom:10px;
+}
+fieldset.plain {
+    background-color:#ffffff;
+    border:none;
+    text-align:center;
+}
+label.txtbx {
+    font-weight:bold;
+    font-size:13px;
+    line-height:normal;
+    margin-right:10px;
+    width:110px;
+    float:left;
+    text-align:right;
+}
+label.fieldLabel{
+    font-weight:bold;
+    font-size:13px;
+    line-height:normal;
+    line-height:normal;
+    float:left;
+    padding-left:0px;
+    padding-right:0px;
+    text-align:right;
+    width:200px;
+}
+div#wrapper {
+    border-style:dotted;
+    border-width:1px;
+    border-color:Green;   
+}
+input.formInputField {
+    border:solid 1px #090;
+    background-color: #fff;
+    color:#333;
+    margin-right:5px;
+    margin-bottom:5px;
+    padding:2px;
+    height:15px;
+    font-size:13px;
+    width:55%;
+}
+input.formInputField_grey {
+    border:solid 1px #090;
+    background-color: #fff;
+    color:grey;
+    margin-right:5px;
+    margin-bottom:5px;
+    padding:2px;
+    height:15px;
+    font-size:13px;
+    width:55%;
+}
+.checkhelp {
+    position:relative;
+    padding-left:0px;
+    float:left;
+}
+input.formInputField:hover,input.formInputField_grey:hover {
+    background-color:#D3D3D3;
+    border:solid 1px #006600;
+    color:#000;
+}
+textarea {
+    border:solid 1px #090;
+    background-color: #fff;
+    color:grey;
+    margin-right:5px;
+    margin-bottom:5px;
+    font-size:13px;
+    width:80%;
+    resize:vertical;
+    /*font-family:"calibri";*/
+}
+textarea:hover {
+    background-color:#D3D3D3;
+    border:solid 1px #006600;
+    color:#000;
+}
+form.submit {
+    padding-left:40%;
+}
+input.formInputButton {
+    text-align:center;
+    color:rgb(0,112,66);
+}
+input.formInputButton:hover {
+    color:rgb(200,0,0);
+}
+.allBorder {
+    border:solid 1px #fff;
+}
+#bar {
+  width: 240px;
+  background-color: rgba(255, 255, 255, 0.75);
+  margin: 8px;
+  padding: 4px;
+  border-radius: 4px;
+}
+#autoc {
+  width: 100%;
+  box-sizing: border-box;
+}
+/* uncomment to view the general page structure */
+/*
+div {
+    border-style:dotted;
+    border-width:1px;
+    border-color:Green;
+}
+*/
+         </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="center" class="column">
+                <div id="content-block">
+                    <h2>Cloud Learning Journey By Tim Clapp,Kishore Matta #5 - Project</h2>
+                    <div id="map"></div>
+                        <div id="bar"><p><a id="clear" onclick="reload()" href="#">Click here</a> to clear directions</p></div>
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+                    <script>
+    var geocoder;
+    var directionService;
+    var apiKey = 'AIzaSyDdoCP1M2rKH2hiYPYsFUdaY-lPmxWY0VI';
+    var map;
+    var distanceService;
+    var startAddress = "2401 Utah Ave S, Seattle, WA 98134";
+    var currentAddress = "2401 Utah Ave S, Seattle, WA 98134";
+    var currentLocation;
+    var currentLatLng;
+
+    var storeLatLng = [];
+    var storeMarkers = [];
+    var storeMarker;
+    var closestStoreMarkerIndex = -1;
+    var closestStoreChanged = false;
+    var selectedStoreMarker;
+    
+    var lastSelectedMarker;
+
+    var DEBUG = false;
+
+    var hasOrdered = false;
+    var polylines = [];
+    var orderDate;
+    var orderExpiresDate;
+
+    var order = [];
+
+    function initMap() {
+        geocoder = new google.maps.Geocoder();
+        directionService = new google.maps.DirectionsService();
+        map = new google.maps.Map(document.getElementById('map'), {zoom: 12});
+        distanceService = new google.maps.DistanceMatrixService();
+
+        init();
+    }
+
+    function init() {
+        log("setting current location: " + startAddress);
+        
+        map.controls[google.maps.ControlPosition.RIGHT_TOP].push(
+            document.getElementById('bar')
+        );
+
+        geocoder.geocode({'address': startAddress}, 
+            function(results, status) {
+                if (status === 'OK') {
+                    map.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: map
+                        , position: results[0].geometry.location
+                        , title: "You"
+                        , draggable:true
+
+                    });
+
+                    currentLatLng = new google.maps.LatLng(
+                        results[0].geometry.location.lat()
+                        , results[0].geometry.location.lng()
+                    );
+
+                    google.maps.event.addListener(marker, 'dragend',
+                        function(marker){
+                            currentLatLng = marker.latLng;
+                            findClosestStore();
+                        }
+                    );
+
+                    loadStores();
+                }
+                else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            }
+        );
+
+        document.getElementById('startAddress').value = startAddress;
+        
+    }
+    
+    function reload() {
+        log("reloading...");
+        clearDirections();
+    }
+
+    function loadStores() {
+        log("loading stores....");
+
+        var offset = 0;
+        var inc = 10;
+
+        geocoder.geocode({'address': startAddress}, 
+            function(results, status) {
+                if(status === 'OK') {
+                    var promises = [];
+
+                    while(true) {
+                        var promise = new Promise(
+                           function(resolve, reject) {
+                                $.ajax({
+                                    asych: false,
+                                    type: "GET",
+                                    url: "https://testhost.openapi.starbucks.com/location/v2/stores/nearby",
+                                    headers: {
+                                        'Accept': 'application/json'
+                                    },
+                                    data:{
+                                        radius: 10,
+                                        latlng: getlatlng(results[0].geometry.location),
+                                        offset: offset,
+                                        limit: 10
+                                    },
+                                    success: function(data) {
+                                        resolve(data);
+                                    },
+                                    fail: function(data) {
+                                        log("failed to load stores: " + data);
+                                        reject(data);
+                                    }
+                                });
+                            }
+                        );
+
+                        promises.push(promise);
+
+                        offset += inc;
+
+                        if(offset > 110) {
+                            break;
+                        }
+                    }
+                    Promise.all(promises).then(
+                        function(values) {
+                            if(DEBUG) {
+                                log(values);
+                            }
+
+                            for(var i=0; i < values.length; i++) {
+                                var store = values[i];
+
+                                for(var j=0; j < store.stores.length; j++) {
+                                    if(DEBUG) {
+                                        log("loading store: " + store.stores[j].store.name);
+                                    }
+
+                                    var latlng = createLatLng(store.stores[j]);
+                                    storeLatLng.push(latlng);
+
+                                    var marker = new google.maps.Marker({
+                                        map: map,
+                                        position: latlng,
+                                        title: store.stores[j].store.name,
+                                        icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                                    });
+                                    marker.set("name", store.stores[j].store.name);
+                                    marker.set("index", i);
+
+                                    google.maps.event.addListener(marker, 'click',
+                                        function(marker){
+                                            lastSelectedMarker = marker;
+                                            checkOrder(marker);
+                                        }
+                                    );
+                                    storeMarkers.push(marker);
+                                }
+                           }
+                           findClosestStore();
+                        }   
+                    );
+                }
+                else {
+                    log('failed to load stores: ' + status);
+                }
+            }
+        );
+    }
+
+    function checkOrder(marker) {
+        if(!hasOrdered) {
+            drawDirections(marker);
+        }
+        else {
+            moveOrder(marker);
+        }
+    }
+
+
+    function moveOrder(marker) {
+        log("moving order");
+        
+        if(hasOrdered) {
+            // check if okay to move order to closer location - time to move hasn't expired
+            var now = new Date();
+
+            if(DEBUG) {
+                log("now=" + now);
+                log("expires=" + orderExpiresDate);
+            }
+
+            if(now.getTime() <= orderExpiresDate.getTime()) {               
+                if(confirm("would you like to move your order ?")) {
+                    selectedStoreMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+                    selectedStoreMarker = findMarker(lastSelectedMarker.latLng);
+                    selectedStoreMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/orange-dot.png');
+                    drawDirections(marker);
+                }
+            }
+            else {
+                alert("Sorry, it is too late to move your order!");
+            }
+        }
+        else {
+            alert("place an order first.");
+        }
+    }
+
+
+    function placeOrder() {
+        log("place order");
+
+        if(hasOrdered) {
+            moveOrder(lastSelectedMarker);
+        }
+        else {
+            if(lastSelectedMarker === undefined || lastSelectedMarker === null) {
+                alert("select a store first!");
+                return;
+            }
+            
+            if(confirm("would you like to place an order ?")) {
+                
+                hasOrdered = true;
+                orderedDate = new Date();
+                orderExpiresDate = new Date();
+                orderExpiresDate.setSeconds(orderExpiresDate.getSeconds() + 30);
+                
+                selectedStoreMarker = findMarker(lastSelectedMarker.latLng);
+
+                if(selectedStoreMarker === undefined || selectedStoreMarker === null) {
+                    log("coudln't find the correct marker");
+                }
+                else {
+                    selectedStoreMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/orange-dot.png');
+                }
+                
+                log("placing order complete");
+            }
+        }
+    }
+    
+    function cancelOrder() {
+        log("cancelling order");
+        
+        if(hasOrdered) {
+            if(confirm("are you sure you want to cancel ?")) {
+                selectedStoreMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+                clearDirections();
+                selectedStoreMarker = null;
+                lastSelectedMarker = null;
+            }
+        }
+        hasOrdered = false;
+    }
+
+    function drawDirections(marker) {
+        log("drawing directions");
+
+        // clear previous
+        clearDirections();
+
+        // lookup gps coordinates: latitutude/longitude
+        request = {
+            origin: currentLatLng,
+            destination: getlatlng(marker.latLng),
+            optimizeWaypoints: true,
+            travelMode: 'DRIVING'
+        };
+
+        var polylineOptions = new google.maps.Polyline({
+            strokeColor: '#FE0000',
+            strokeOpacity: 0.8,
+            strokeWeight: 5
+        });
+
+        directionService.route(request,
+            function(response, status) {
+                if(status === 'OK') {
+                    var polyline = new google.maps.Polyline(polylineOptions);
+                    var path = response.routes[0].overview_path;
+                    for (var x in path) {
+                        polyline.getPath().push(path[x]);
+                    }
+                    polyline.setMap(map);
+                    polylines.push(polyline);
+                }
+                else {
+                    log(status);
+                }
+            }
+        );
+    }
+
+
+    function findClosestStore() {
+        log("finding closest store...");
+
+        var promises = [];
+        for(var i=0; i < storeLatLng.length; i++) {
+
+            var p = new Promise(
+                function (resolve, reject) {
+                    distanceService.getDistanceMatrix(
+                        {
+                            origins: new Array(getlatlng(currentLatLng)),
+                            destinations: new Array(getlatlng(storeLatLng[i])),
+                            travelMode: 'DRIVING'
+                        }, 
+                        function(response, status) {
+                            if(status === 'OK') {
+                                resolve(response.rows[0].elements[0].distance.value);
+                            }
+                            else {
+                                resolve(100000);
+                            }
+                        }
+                    );
+                }  
+            );
+            promises.push(p);
+        }
+
+        Promise.all(promises).then(
+            function(values) {
+                closestStoreChanged = false;
+
+                var previousIndex = closestStoreMarkerIndex;
+
+                if(storeMarker === undefined) {
+                    if(DEBUG) {
+                        log("storeMarker == undefined");
+                    }
+                }
+                else {
+                    storeMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+                }
+
+                var distance = 100000;
+                for(var i=0; i < values.length; i++) {
+    //                        log("distance [" + i + "] =" + values[i]);
+
+                    if(values[i] < distance) {
+                        distance = values[i];
+                        storeMarker = storeMarkers[i];
+                        closestStoreMarkerIndex = i;
+                    }
+                }
+                storeMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+            }
+        );
+
+        // sanity check that all coordinates are correctly mapped into each array
+        if(DEBUG) {
+            for(var i=0; i < storeLatLng.length; i++) {
+                var a = getlatlng(storeLatLng[i]);
+                var b = getlatlng(storeMarkers[i].position);
+                if(a!==b) {
+                    log("error: index= " + i + ": " + a + " != " + b);
+                }
+                else {
+                    log("match: index= " + i + ": " + a + " == " + b);
+                }
+            }
+        }
+    }
+
+    function clearDirections() {
+        if(polylines === undefined || polylines.length === 0) {
+            return;
+        }
+        
+        log("clearing directions");
+        
+        for(var i=0; i < polylines.length; i++) {
+            polylines[i].setMap(null);
+        }
+        polylines = [];
+    }
+
+    function getlatlng(latlng) {
+        return latlng.lat() + "," + latlng.lng();
+    }
+
+    function createLatLng(store) {
+        return new google.maps.LatLng(
+            store.store.coordinates.latitude
+            , store.store.coordinates.longitude
+        );
+    }
+    
+    function findMarker(latLng) {
+        var src = getlatlng(latLng);
+        
+        for(var i=0; i < storeMarkers.length; i++) {
+            var tgt = getlatlng(storeMarkers[i].position);
+            if(src === tgt) {
+                return storeMarkers[i];
+            }
+        }
+        return null;
+    }
+
+    function log(msg) {
+        console.log(msg);
+    }
+                    </script>
+                    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDdoCP1M2rKH2hiYPYsFUdaY-lPmxWY0VI&callback=initMap"></script>
+                </div>
+                <div id="content-block">
+                    <form id="requestForm">
+                        <fieldset>
+                            <label for="name" class="txtbx">Start Address:</label>
+                            <input class="formInputField" type="text" name="Name" id="startAddress" maxlength="50" tabindex="1"/>
+                            <br/>
+                            <!--
+                            <label for="email" class="txtbx">Email:</label> 
+                            <input class="formInputField_grey" type="text" name="Email" id="email" onkeyup="unshadow(event,this.id)" onclick="unshadow(event,this.id)" maxlength="50" tabindex="2" value="*your_alias*@starbucks.net"/>
+                            <br/>
+                            <label for="date" class="txtbx">Date Needed By:</label>
+                            <input class="formInputField_grey" type="text" name="Date" id="date" onkeyup="unshadow(event,this.id)" onclick="unshadow(event,this.id)" maxlength="10" tabindex="3" value="mm/dd/yyyy" />
+                            <br/>
+                            <label for="duration" class="txtbx">Duration:</label>
+                            <input class="formInputField" type="text" name="Duration" id="duration" maxlength="100" tabindex="4" value=""/>
+                            -->
+                        </fieldset>
+                        <fieldset class="plain">
+                            <input type="button" class="formInputButton" value="Place Order" onclick="placeOrder();" tabindex="16">
+                            <input type="button" class="formInputButton" value="Move Order" onclick="moveOrder();" tabindex="16">
+                            <input type="button" class="formInputButton" value="Cancel Order" onclick="cancelOrder(); "tabindex="16">   
+                            
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+<!--
+
+1. select a location
+    -> if an order has been placed, ask user if they want to move order ?
+        -> if yes, go to move order
+    -> else draw directions
+
+
+2. click place an order
+    -> if no location has been selected, do nothing
+    -> else
+        -> icon of destination marker changes color to orange
+        -> an order is created
+
+
+3. move order
+	-> click move order
+	-> if time hasn't expired
+		-> confirm with user if they want to move
+        -> if yes, redraw lines, change marker color
+
+4. cancel an order
+    -> if time hasn't expired
+        -> nullify order
+        -> remove lines
+    -> else, too late to cancel
+
+5. clear
+    -> just removes any painted lines
+-->
