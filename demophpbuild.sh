@@ -8,7 +8,8 @@ docker stop hellokishore
 docker rm hellokishore
 docker build -t hello-world .  | tee -a "${l_basename}".log
 
-docker run -d --name hellokishore -p 8085:8085 -v /home/ubuntu1/demophp/src:/var/www/html hello-world
+docker run -d --name hellokishore -p 80:80  hello-world
+
 
 
 echo "done building docker image"
